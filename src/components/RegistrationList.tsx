@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Registration } from './Registration';
+import { InsertRegistrationForm } from './InsertRegistrationForm';
 
 interface RegistrationListProps {
     eventName: string;
@@ -79,7 +80,8 @@ export const RegistrationList: React.FC<RegistrationListProps> = props =>
                         <hr />
                     </div>);
             }) : <h3>there are no registrations for event {props.eventName}</h3>}
-            <button onClick={insertTestRegistration} >Insert test registration</button>
+            <button onClick={insertTestRegistration} >Insert test registration</button><br />
+            <InsertRegistrationForm eventName={props.eventName} />
         </>
     );
 }
