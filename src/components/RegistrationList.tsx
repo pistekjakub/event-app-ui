@@ -4,6 +4,7 @@ import { InsertRegistrationForm } from './InsertRegistrationForm';
 
 interface RegistrationListProps {
     eventName: string;
+    firstFieldRef: React.Ref<HTMLInputElement>;
 }
 
 interface RegistrationModel {
@@ -67,7 +68,7 @@ export const RegistrationList: React.FC<RegistrationListProps> = props =>
                         <hr />
                     </div>);
             }) : <h3>there are no registrations for event {props.eventName}</h3>}
-            <InsertRegistrationForm onRegistrationInserted={handleOnRegistrationInserted} eventName={props.eventName} />
+            <InsertRegistrationForm firstFieldRef={props.firstFieldRef} onRegistrationInserted={handleOnRegistrationInserted} eventName={props.eventName} />
         </>
     );
 }

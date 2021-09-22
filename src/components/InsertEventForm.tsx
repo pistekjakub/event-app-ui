@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 interface InsertEventFormProps {
-    // eventName: string,
     onEventInserted: () => void,
 }
 
@@ -12,9 +11,6 @@ export const InsertEventForm: React.FC<InsertEventFormProps> = props => {
     const [name, setName] = useState<string>("");
     const [description, setDescription] = useState<string>("");
     const [location, setLocation] = useState<string>("");
-
-    // const [startTime, setStartTime] = useState<Date>();
-    // const [endTime, setEndTime] = useState<Date>();
     const [showError, setShowError] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
 

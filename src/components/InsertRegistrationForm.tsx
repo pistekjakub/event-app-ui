@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 interface InsertRegistrationFormProps {
     eventName: string,
     onRegistrationInserted: () => void,
+    firstFieldRef: React.Ref<HTMLInputElement>,
 }
 
 export const InsertRegistrationForm: React.FC<InsertRegistrationFormProps> = props => {
@@ -79,7 +80,7 @@ export const InsertRegistrationForm: React.FC<InsertRegistrationFormProps> = pro
                 <table>
                     <tr>
                         <td><label htmlFor="registration-name">Name:</label></td>
-                        <td><input id="registration-name" type="text" onChange={handleNameOnChange} value={name} /></td>
+                        <td><input ref={props.firstFieldRef} id="registration-name" type="text" onChange={handleNameOnChange} value={name} /></td>
                     </tr>
 
                     <tr>
