@@ -25,8 +25,6 @@ export const RegistrationList: React.FC<RegistrationListProps> = props =>
     }, [props.eventName]);
 
     const insertTestRegistration = () => {
-
-
         fetch('http://localhost:5000/api/registration', {
             method: 'post',
             headers: {
@@ -42,8 +40,7 @@ export const RegistrationList: React.FC<RegistrationListProps> = props =>
     }
 
     const fetchRegistrations = () => {
-        var url = `http://localhost:5000/api/registration/${props.eventName}`;
-        fetch(url)
+        fetch(`http://localhost:5000/api/registration/${props.eventName}`)
             .then(response => {
                 if (response.ok) {
                     return response.json();
