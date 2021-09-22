@@ -24,19 +24,9 @@ export const RegistrationList: React.FC<RegistrationListProps> = props =>
         fetchRegistrations();
     }, [props.eventName]);
 
-    const insertTestRegistration = () => {
-        fetch('http://localhost:5000/api/registration', {
-            method: 'post',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              },
-            body: JSON.stringify({eventName: 'test event 1', email: 'jakub@jakub.com', name: 'Jakub Pištěk', phone: '+420666999888'})
-          }).then(function(response) {
-            return response.json();
-          }).then(function(data) {
-            alert("data: " + JSON.stringify(data));
-          });
+    const handleOnRegistrationAdded = () => 
+    {
+        fetchRegistrations();
     }
 
     const fetchRegistrations = () => {
@@ -77,8 +67,7 @@ export const RegistrationList: React.FC<RegistrationListProps> = props =>
                         <hr />
                     </div>);
             }) : <h3>there are no registrations for event {props.eventName}</h3>}
-            <button onClick={insertTestRegistration} >Insert test registration</button><br />
-            <InsertRegistrationForm eventName={props.eventName} />
+            <InsertRegistrationForm onRegistrationAdded={handleOnRegistrationAdded} eventName={props.eventName} />
         </>
     );
 }

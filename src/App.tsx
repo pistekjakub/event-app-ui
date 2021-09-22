@@ -7,7 +7,6 @@ function App() {
   const [selectedEventName, setSelectedEventName] = useState<string>("");
   const handleOnEventNameChange = (eventName: string) => 
   {
-    // alert("handleOnEventNameChange: " + eventName);
     setSelectedEventName(eventName);
   }
 
@@ -15,8 +14,7 @@ function App() {
     <div className="App">
       <h2>Events:</h2>
       <EventList onEventNameChange={handleOnEventNameChange} />
-      <h2>Registrations:</h2>
-      <RegistrationList eventName={selectedEventName} />
+      {selectedEventName && <><h2>Registrations:</h2><RegistrationList eventName={selectedEventName} /></>}
     </div>
   );
 }

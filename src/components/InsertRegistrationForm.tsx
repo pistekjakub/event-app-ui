@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 
 interface InsertRegistrationFormProps {
-    eventName: string
+    eventName: string,
+    onRegistrationAdded: () => void,
 }
 
 export const InsertRegistrationForm: React.FC<InsertRegistrationFormProps> = props => {
     const [name, setName] = useState<string>("");
     const [phone, setPhone] = useState<string>("");
     const [email, setEmail] = useState<string>("");
-
     const [showError, setShowError] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
 
@@ -26,43 +26,58 @@ export const InsertRegistrationForm: React.FC<InsertRegistrationFormProps> = pro
 
     const handleSubmit = () => {
         // trim fields
-        setName(name.replace(/\s/g, ""));
-        setPhone(phone.replace(/\s/g, ""));
-        setEmail(email.replace(/\s/g, ""));
+        const trimmedName = name.trim();
+        const trimmedPhone = phone.trim();
+        const trimmedEmail = email.trim();
 
-        if (name === "" || phone === "" || email === "") {
+        if (trimmedName === "" || trimmedPhone === "" || trimmedEmail === "") {
             setError("Name, Phone and Email are required");
             setShowError(true);
-        } else {
-            setShowError(false);
+            return;
         }
+
+        insertRegistration(props.eventName, name, phone, email);
     }
 
-    const insertRegistration = () => {
-        fetch('http://localhost:5000/api/registration', {
+    const insertRegistration = async (registrationEventName: string, registrationName: string, registrationPhone: string, registrationEmail: string) => {
+        var result = await fetch('http://localhost:5000/api/registration', {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ eventName: props.eventName, email: email, name: name, phone: phone })
+            body: JSON.stringify({ eventName: registrationEventName, email: registrationEmail, name: registrationName, phone: registrationPhone })
         }).then(function (response) {
             return response.json();
         }).catch(error => {
-            alert("error: " + error);
+            setShowError(true);
+            setError(error);
             console.log(error);
         });
 
-        //   .then(function(data) {
-        //     alert("data: " + JSON.stringify(data));
-        //   });
+        if(result.error !== "")
+        {
+            setShowError(true);
+            setError(result.error);
+        } else {
+            setShowError(false);
+            setName("");
+            setPhone("");
+            setEmail("");    
+        }
     }
 
     return (
         <>
-            Name: <input type="text" onChange={handleNameOnChange} value={name} /><br />
-            Phone: <input type="text" onChange={handlePhoneOnChange} value={phone} /><br />
-            Email: <input type="text" onChange={handleEmailOnChange} value={email} /><br />
+            <label htmlFor="registration-name">Name: </label> 
+            <input id="registration-name" type="text" onChange={handleNameOnChange} value={name} /><br />
+            
+            <label htmlFor="registration-phone">Phone: </label>
+            <input id="registration-phone" type="text" onChange={handlePhoneOnChange} value={phone} /><br />
+            
+            <label htmlFor="registration-email">Email: </label>
+            <input id="registration-email" type="text" onChange={handleEmailOnChange} value={email} /><br />
+
             <button onClick={handleSubmit}>Submit registration</button><br />
             {showError && <span>{error}</span>}
         </>

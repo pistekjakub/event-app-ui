@@ -18,11 +18,8 @@ export const Event: React.FC<EventProps> = props =>
 
     return (
         <>
-            <b>Name:</b> <a href="#" onClick={() => handleEventNameChange(props.name)}>{props.name}</a><br />
-            <b>Description:</b> {props.description}<br />
-            <b>Location:</b> {props.location}<br />
-            <b>Start:</b> {props.startTime}<br />
-            <b>End:</b> {props.endTime}<br />
+            <b>Name:</b> <a href="#" onClick={() => handleEventNameChange(props.name)}>{props.name}</a>, <b>Description:</b> {props.description}<br />
+            <b>Location:</b> {props.location}, <b>Start:</b> {props.startTime}, <b>End:</b> {props.endTime}<br />
         </>
     )
 }
