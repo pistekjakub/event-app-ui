@@ -24,9 +24,9 @@ export const RegistrationList: React.FC<RegistrationListProps> = props =>
         fetchRegistrations();
     }, [props.eventName]);
 
-    const handleOnRegistrationAdded = () => 
+    const handleOnRegistrationInserted = () => 
     {
-        fetchRegistrations();
+        setTimeout(function(){ fetchRegistrations() }, 100);
     }
 
     const fetchRegistrations = () => {
@@ -67,7 +67,7 @@ export const RegistrationList: React.FC<RegistrationListProps> = props =>
                         <hr />
                     </div>);
             }) : <h3>there are no registrations for event {props.eventName}</h3>}
-            <InsertRegistrationForm onRegistrationAdded={handleOnRegistrationAdded} eventName={props.eventName} />
+            <InsertRegistrationForm onRegistrationInserted={handleOnRegistrationInserted} eventName={props.eventName} />
         </>
     );
 }

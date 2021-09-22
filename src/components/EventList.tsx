@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-// import classes from './EventList.scss';
 import { Event } from './Event';
+import { InsertEventForm } from './InsertEventForm';
 
 interface EventListProps {
     onEventNameChange: (eventName: string) => void,
@@ -21,6 +21,11 @@ export const EventList: React.FC<EventListProps> = props =>
     const handleEventNameChange = (eventName: string) => {
         props.onEventNameChange(eventName);
     };
+
+    const handleOnEventInserted = () => 
+    {
+        setTimeout(function(){ fetchEvents() }, 100);
+    }
 
     useEffect(() => { //this effect with these parameters calls the function only one time on the first load
         fetchEvents();
@@ -71,6 +76,7 @@ export const EventList: React.FC<EventListProps> = props =>
                             <hr />
                         </>);
             })}
+            <InsertEventForm onEventInserted={handleOnEventInserted} />
         </>
     );
 }

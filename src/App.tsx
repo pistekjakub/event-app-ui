@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <h2>Events:</h2>
       <EventList onEventNameChange={handleOnEventNameChange} />
-      {selectedEventName && <><h2>Registrations:</h2><RegistrationList eventName={selectedEventName} /></>}
+      {selectedEventName ? <><h2>Registrations:</h2><RegistrationList eventName={selectedEventName} /></> : <h2>Please select an event</h2>}
     </div>
   );
 }

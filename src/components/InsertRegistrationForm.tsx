@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 interface InsertRegistrationFormProps {
     eventName: string,
-    onRegistrationAdded: () => void,
+    onRegistrationInserted: () => void,
 }
 
 export const InsertRegistrationForm: React.FC<InsertRegistrationFormProps> = props => {
@@ -24,7 +24,7 @@ export const InsertRegistrationForm: React.FC<InsertRegistrationFormProps> = pro
         setEmail(event.currentTarget.value);
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
         // trim fields
         const trimmedName = name.trim();
         const trimmedPhone = phone.trim();
@@ -37,6 +37,12 @@ export const InsertRegistrationForm: React.FC<InsertRegistrationFormProps> = pro
         }
 
         insertRegistration(props.eventName, name, phone, email);
+        if(!showError)
+        {
+            props.onRegistrationInserted();
+        }
+
+        event.preventDefault();
     }
 
     const insertRegistration = async (registrationEventName: string, registrationName: string, registrationPhone: string, registrationEmail: string) => {
@@ -55,31 +61,40 @@ export const InsertRegistrationForm: React.FC<InsertRegistrationFormProps> = pro
             console.log(error);
         });
 
-        if(result.error !== "")
-        {
+        if (result.error !== "") {
             setShowError(true);
             setError(result.error);
         } else {
             setShowError(false);
             setName("");
             setPhone("");
-            setEmail("");    
+            setEmail("");
         }
     }
 
     return (
-        <>
-            <label htmlFor="registration-name">Name: </label> 
-            <input id="registration-name" type="text" onChange={handleNameOnChange} value={name} /><br />
-            
-            <label htmlFor="registration-phone">Phone: </label>
-            <input id="registration-phone" type="text" onChange={handlePhoneOnChange} value={phone} /><br />
-            
-            <label htmlFor="registration-email">Email: </label>
-            <input id="registration-email" type="text" onChange={handleEmailOnChange} value={email} /><br />
+        <form>
+            <fieldset>
+                <legend>Submit registration</legend>
+                <table>
+                    <tr>
+                        <td><label htmlFor="registration-name">Name:</label></td>
+                        <td><input id="registration-name" type="text" onChange={handleNameOnChange} value={name} /></td>
+                    </tr>
 
-            <button onClick={handleSubmit}>Submit registration</button><br />
+                    <tr>
+                        <td><label htmlFor="registration-phone">Phone:</label></td>
+                        <td><input id="registration-phone" type="text" onChange={handlePhoneOnChange} value={phone} /></td>
+                    </tr>
+
+                    <tr>
+                        <td><label htmlFor="registration-email">Email:</label></td>
+                        <td><input id="registration-email" type="text" onChange={handleEmailOnChange} value={email} /></td>
+                    </tr>
+                </table>
+                <input type="submit" onClick={handleSubmit} value="Submit registration" />
+            </fieldset>
             {showError && <span>{error}</span>}
-        </>
+        </form>
     )
 }
