@@ -37,22 +37,7 @@ export const RegistrationList: React.FC<RegistrationListProps> = props =>
             return response.json();
           }).then(function(data) {
             alert("data: " + JSON.stringify(data));
-            // ChromeSamples.log('Created Gist:', data.html_url);
           });
-
-        // (async () => {
-        //     const rawResponse = await fetch('http://localhost:5000/api/registration', {
-        //       method: 'POST',
-        //       headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json'
-        //       },
-        //       body: JSON.stringify({eventName: 'test event 1', email: 'jakub@jakub.com', name: 'Jakub Pištěk', phone: '+420666999888'})
-        //     });
-        //     const content = await rawResponse.json();
-          
-        //     console.log(content);
-        //   })();
     }
 
     const fetchRegistrations = () => {
