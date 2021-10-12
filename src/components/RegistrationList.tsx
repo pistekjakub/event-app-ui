@@ -34,14 +34,14 @@ export const RegistrationList: React.FC<RegistrationListProps> = props =>
         fetch(`http://localhost:5000/api/registration/${props.eventName}`)
             .then(response => {
                 if (response.ok) {
-                    return response.json();
+                        return response.json();
                 } else {
-                    throw new Error(response.statusText);
+                throw new Error(response.statusText);
                 }
             }).then(responseJson => {                
-                let registrationArr: RegistrationModel[] = [];
+                const registrationArr: RegistrationModel[] = [];
                 responseJson.registrations.forEach(function (event: any) {
-                    let registrationModelItem: RegistrationModel = {
+                    const registrationModelItem: RegistrationModel = {
                         name: event.name,
                         phone: event.phone,
                         email: event.email,
@@ -59,7 +59,7 @@ export const RegistrationList: React.FC<RegistrationListProps> = props =>
         <>
             {registrations.length ? registrations.map((entry, rowIndex) => {
                 return  (
-                    <div>
+                    <div key={rowIndex}>
                         <Registration 
                             key={rowIndex} 
                             name={entry.name} 

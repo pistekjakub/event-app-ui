@@ -1,14 +1,17 @@
 import React, {useState, useRef} from 'react';
 import './App.css';
+import 'antd/dist/antd.css';
 import { EventList } from './components/EventList';
 import { RegistrationList } from './components/RegistrationList';
+
+
 
 function App() {
   const firstFieldRef = useRef<HTMLInputElement>(null);
   const [selectedEventName, setSelectedEventName] = useState<string>("");
   const handleOnEventNameChange = (eventName: string) => 
   {
-    setSelectedEventName(eventName);
+  setSelectedEventName(eventName);
     setTimeout(function(){ firstFieldRef.current?.focus() }, 0);
   }
 

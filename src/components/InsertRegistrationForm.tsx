@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Button } from "antd";
+
 
 interface InsertRegistrationFormProps {
     eventName: string,
@@ -25,7 +27,8 @@ export const InsertRegistrationForm: React.FC<InsertRegistrationFormProps> = pro
         setEmail(event.currentTarget.value);
     }
 
-    const handleSubmit = (event: React.FormEvent<HTMLInputElement>) => {
+
+  const handleOnClick = (event: any) => {
         // trim fields
         const trimmedName = name.trim();
         const trimmedPhone = phone.trim();
@@ -44,10 +47,10 @@ export const InsertRegistrationForm: React.FC<InsertRegistrationFormProps> = pro
         }
 
         event.preventDefault();
-    }
+  };
 
     const insertRegistration = async (registrationEventName: string, registrationName: string, registrationPhone: string, registrationEmail: string) => {
-        var result = await fetch('http://localhost:5000/api/registration', {
+        const result = await fetch('http://localhost:5000/api/registration', {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
@@ -93,7 +96,7 @@ export const InsertRegistrationForm: React.FC<InsertRegistrationFormProps> = pro
                         <td><input id="registration-email" type="text" onChange={handleEmailOnChange} value={email} /></td>
                     </tr>
                 </table>
-                <input type="submit" onClick={handleSubmit} value="Submit registration" />
+                 <Button type="primary" onClick={(e) => handleOnClick(e)}>Submit registration</Button>
             </fieldset>
             {showError && <span>{error}</span>}
         </form>
